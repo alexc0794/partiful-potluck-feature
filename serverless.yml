@@ -1,0 +1,42 @@
+org: partiful
+app: partiful-potluck-backend
+service: partiful-potluck-backend
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:BatchGetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: "arn:aws:dynamodb:us-east-1:213475654097:table/QuickParties"
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:BatchGetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: "arn:aws:dynamodb:us-east-1:213475654097:table/QuickParties/index/*"
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:BatchGetItem
+        - dynamodb:BatchWriteItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: "arn:aws:dynamodb:us-east-1:213475654097:table/Potlucks"
+
+functions:
+  app:
+    handler: build/index.expressHandler
+    events:
+      - http: ANY /
+      - http: "ANY {proxy+}"
