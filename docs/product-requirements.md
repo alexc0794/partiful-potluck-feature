@@ -1,6 +1,4 @@
-# Partiful Potluck Feature
-
-## Product Requirements
+# Product Requirements
 
 - Allow hosts + cohosts to configure a potluck party where guests reserve the right to bring particular items to the party.
 - A party is optionally a potluck
@@ -30,12 +28,12 @@
 - Trying to request a potluck item that already exists
   - Throw an error when you try to request a potluck item with the same name of an item that already is on the potluck item list?
 
-Open Questions
+## Open Questions
 
 - Is there a limit to number of items a potluck can have? Doesn’t seem like we need to arbitrarily restrict unless there is some engineering concern.
 - Can potluck items be assigned to specific guests?
 
-Usage Patterns (Important Queries)
+## Access Patterns
 
 - P0: Given a party, load the potluck items and their statuses (whether they’ve been claimed or not)
 - P0: Hosts (or maybe even guests) add new potluck items to the list.
@@ -46,8 +44,3 @@ Usage Patterns (Important Queries)
 - P1: View what guests have not claimed a potluck item.
   - If the potluck is represented as a NoSQL entity, then although the database query is inexpensive, the computation is linear to number of guests + number of items in the worst case (but this seems unavoidable).
 - P2: View what potluck items a guest has brought to previous parties.
-
-Engineering Design
-
-- For each event, an optional potluck entity can be created if the host selects that a party is a potluck
-- A potluck entity can be represented as a table, in which case I’d choose to use a NoSQL database like DynamoDB or MongoDB. The entire list of potluck items and it’s claim status could be nested under this schema-less Potluck entity. Choosing NoSQL here has an advantage in being faster to query as we can avoid joins across tables to view the status of an entire potluck.
