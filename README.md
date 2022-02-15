@@ -18,7 +18,7 @@ See `package.json` for other scripts to run.
 
 ### HTTPS
 
-The backend is run on https, so you must have `server.cert` and `server.key`. These should be generated locally and not made public, which is why they are in the .gitignore. To generate a self-signed certificate, go to the root `cobyo-video-backend` folder and run:
+The backend is run on https, so you must have `server.cert` and `server.key`. These should be generated locally and not made public, which is why they are in the .gitignore. To generate a self-signed certificate, go to the root folder and run:
 
 ```
 openssl req -nodes -new -x509 -keyout server.key -out server.cert
